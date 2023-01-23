@@ -4,6 +4,30 @@
     <title>Tally Counter</title>
     <script>
         // JavaScript code to handle the button click and send the tally count and user name to the server will go here
+        document.getElementById("increment-button").addEventListener("click", function(){
+    var name = document.getElementById("name").value;
+    var tallyCount = document.getElementById("tally-count").innerHTML;
+    tallyCount++;
+    document.getElementById("tally-count").innerHTML = tallyCount;
+    // Code to send the user's name and tally count to the server goes here
+    // You can use Fetch API or XMLHttpRequest
+    // Here is an example using the Fetch API
+    fetch("leaderboards.js", {
+        method: "POST",
+        body: JSON.stringify({name: name, tally: tallyCount}),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        // Update the leaderboard on the HTML page with the new data
+        document.getElementById("leaderboard").innerHTML = data;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+});
     </script>
 </head>
 <body>
