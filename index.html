@@ -15,16 +15,24 @@
         margin: auto;
         background-color: white;
         text-align: center;
+        margin-bottom: 20px;
       }
     </style>
   </head>
   <body>
     <div id="counter">
-      <h1>Gifts Opened</h1>
+      <h1>Tally Counter</h1>
       <p>Count: <span id="count">0</span></p>
-      <button onclick="increment()">+1</button>
-      <button onclick="decrement()">-1</button>
+      <button onclick="increment()">Increment</button>
+      <button onclick="decrement()">Decrement</button>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name">
+        <button onclick="submitScore()">Submit Score</button>
+      </form>
     </div>
+    <h2>Leaderboard</h2>
+    <div id="leaderboard"></div>
     <script>
       var count = localStorage.getItem("count") || 0;
       document.getElementById("count").innerHTML = count;
@@ -38,6 +46,23 @@
         localStorage.setItem("count", count);
         document.getElementById("count").innerHTML = count;
       }
+      function submitScore() {
+        var name = document.getElementById("name").value;
+        var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+        leaderboard.push({ name: name, score: count });
+        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+        displayLeaderboard();
+      }
+      function displayLeaderboard() {
+        var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+        var leaderboardElem = document.getElementById("leaderboard");
+        leaderboardElem.innerHTML = "";
+        for (var i = 0; i < leaderboard.length; i++) {
+          var entry = leaderboard[i];
+          leaderboardElem.innerHTML += "<p>" + entry.name + ": " + entry.score + "</p>";
+        }
+      }
+      displayLeaderboard();
     </script>
   </body>
 </html>
