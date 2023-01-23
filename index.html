@@ -2,12 +2,29 @@
 <html>
   <head>
     <title>Tally Counter</title>
+    <style>
+      /* Add a black background */
+      body {
+        background-color: black;
+      }
+
+      /* Add a box around the counter */
+      #counter {
+        width: 200px;
+        padding: 20px;
+        margin: auto;
+        background-color: white;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Gifts Opened</h1>
-    <p>Count: <span id="count">0</span></p>
-    <button onclick="increment()">+1</button>
-    <button onclick="decrement()">-1</button>
+    <div id="counter">
+      <h1>Tally Counter</h1>
+      <p>Count: <span id="count">0</span></p>
+      <button onclick="increment()">Increment</button>
+      <button onclick="decrement()">Decrement</button>
+    </div>
     <script>
       var count = localStorage.getItem("count") || 0;
       document.getElementById("count").innerHTML = count;
