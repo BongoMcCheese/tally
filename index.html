@@ -19,7 +19,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="displayLeaderboard()">
     <div id="counter">
       <h1>Tally Counter</h1>
       <p>Count: <span id="count">0</span></p>
@@ -62,7 +62,6 @@
           leaderboardElem.innerHTML += "<p>" + entry.name + ": " + entry.score + "</p>";
         }
       }
-      displayLeaderboard();
     </script>
   </body>
 </html>
