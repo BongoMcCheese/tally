@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tally Counter</title>
+  </head>
+  <body>
+    <h1>Tally Counter</h1>
+    <p>Count: <span id="count">0</span></p>
+    <button onclick="increment()">Increment</button>
+    <button onclick="decrement()">Decrement</button>
+    <script>
+      var count = localStorage.getItem("count") || 0;
+      document.getElementById("count").innerHTML = count;
+      function increment() {
+        count++;
+        localStorage.setItem("count", count);
+        document.getElementById("count").innerHTML = count;
+      }
+      function decrement() {
+        count--;
+        localStorage.setItem("count", count);
+        document.getElementById("count").innerHTML = count;
+      }
+    </script>
+  </body>
+</html>
