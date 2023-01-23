@@ -28,26 +28,30 @@
       <form>
         <label for="name">Name:</label>
         <input type="text" id="name" name="name">
-        <button onclick="submitScore()">Submit Score</button>
       </form>
     </div>
     <h2>Leaderboard</h2>
     <div id="leaderboard"></div>
     <script>
       var count = localStorage.getItem("count") || 0;
+      var name = localStorage.getItem("name") || "";
       document.getElementById("count").innerHTML = count;
+      document.getElementById("name").value = name;
       function increment() {
         count++;
         localStorage.setItem("count", count);
         document.getElementById("count").innerHTML = count;
+        submitScore();
       }
       function decrement() {
         count--;
         localStorage.setItem("count", count);
         document.getElementById("count").innerHTML = count;
+        submitScore();
       }
       function submitScore() {
-        var name = document.getElementById("name").value;
+        name = document.getElementById("name").value;
+        localStorage.setItem("name", name);
         var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
         leaderboard.push({ name: name, score: count });
         localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
@@ -59,9 +63,9 @@
         leaderboardElem.innerHTML = "";
         for (var i = 0; i < leaderboard.length; i++) {
           var entry = leaderboard[i];
-          leaderboardElem.innerHTML += "<p>" + entry.name + ": " + entry.score + "</p>";
+          leaderboardElem.innerHTML += "<p>" + entry.name + ": " + entry.score + " ";
+          if (name === "Bongo") {
+            leaderboardElem.innerHTML += "<button onclick='deleteEntry(" + i + ")'>Delete</button>";
+          }
+          leaderboardElem.innerHTML += "</p>";
         }
-      }
-    </script>
-  </body>
-</html>
