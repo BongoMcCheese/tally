@@ -1,44 +1,43 @@
 <!DOCTYPE html>
 <html>
-<head>
+  <head>
     <title>Tally Counter</title>
+    <style>
+      /* Add a black background */
+      body {
+        background-color: black;
+      }
+
+      /* Add a box around the counter */
+      #counter {
+        width: 200px;
+        padding: 20px;
+        margin: auto;
+        background-color: white;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="counter">
+      <h1>Tally Counter</h1>
+      <p>Count: <span id="count">0</span></p>
+      <button onclick="increment()">Increment</button>
+      <button onclick="decrement()">Decrement</button>
+    </div>
     <script>
-        // JavaScript code to handle the button click and send the tally count and user name to the server will go here
-        document.getElementById("increment-button").addEventListener("click", function(){
-    var name = document.getElementById("name").value;
-    var tallyCount = document.getElementById("tally-count").innerHTML;
-    tallyCount++;
-    document.getElementById("tally-count").innerHTML = tallyCount;
-    // Code to send the user's name and tally count to the server goes here
-    // You can use Fetch API or XMLHttpRequest
-    // Here is an example using the Fetch API
-    fetch("leaderboards.js", {
-        method: "POST",
-        body: JSON.stringify({name: name, tally: tallyCount}),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {
-        // Update the leaderboard on the HTML page with the new data
-        document.getElementById("leaderboard").innerHTML = data;
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-});
+      var count = localStorage.getItem("count") || 0;
+      document.getElementById("count").innerHTML = count;
+      function increment() {
+        count++;
+        localStorage.setItem("count", count);
+        document.getElementById("count").innerHTML = count;
+      }
+      function decrement() {
+        count--;
+        localStorage.setItem("count", count);
+        document.getElementById("count").innerHTML = count;
+      }
     </script>
-</head>
-<body>
-    <h1>Tally Counter</h1>
-    <form id="tally-form">
-        <label for="name">Enter your name:</label>
-        <input type="text" id="name" name="name" required>
-        <br>
-        <button type="button" id="increment-button">Increment Tally</button>
-        <p> Tally : <span id="tally-count">0</span> </p>
-    </form>
-    <div id="leaderboard"></div>
-</body>
+  </body>
 </html>
