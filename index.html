@@ -26,7 +26,6 @@
       .hello-beautiful {
         font-size: 50px;
         text-align: center;
-        display: none;
       }
     </style>
   </head>
@@ -56,7 +55,7 @@
       function bMode() {
         document.body.classList.toggle("pink");
         var hello = document.getElementById("hello");
-        if (hello.style.display === "none") {
+        if (document.body.classList.contains("pink")) {
           hello.style.display = "block";
         } else {
           hello.style.display = "none";
