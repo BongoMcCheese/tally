@@ -14,25 +14,68 @@
         text-align: center;
         font-size: 20px;
       }
+      #increment, #decrement {
+        width: 75px;
+        height: 25px;
+        margin: 10px;
+      }
     </style>
   </head>
   <body>
     <div id="tally-counter"></div>
-
-    <table>
+    <button id="increment" onclick="increment()">Increment</button>
+    <button id="decrement" onclick="decrement()">Decrement</button>
+    <br>
+    <br>
+    <label for="name">Enter your name:</label>
+    <input type="text" id="name" name="name">
+    <button onclick="addScore()">Add Score</button>
+    <table id="leaderboard">
         <tr>
             <th>Name</th>
             <th>Score</th>
         </tr>
-        <tr>
-            <td>John</td>
-            <td>10</td>
-        </tr>
-        <tr>
-            <td>Jane</td>
-            <td>15</td>
-        </tr>
     </table>
+    <br>
+    <button onclick="deleteRow()">Delete</button>
+
+    <script>
+      var count = 0;
+      var tallyCounter = document.getElementById("tally-counter");
+      tallyCounter.innerHTML = count;
+
+      function increment() {
+        count++;
+        tallyCounter.innerHTML = count;
+      }
+      function decrement() {
+        count--;
+        tallyCounter.innerHTML = count;
+      }
+
+      function addScore() {
+        var name = document.getElementById("name").value;
+        var table = document.getElementById("leaderboard");
+        var row = table.insertRow();
+        var cell1 = row.insertCell(0);
+        var cell2 = row.insertCell(1);
+        cell1.innerHTML = name;
+        cell2.innerHTML = count;
+        document.getElementById("name").value = "";
+        count = 0;
+        tallyCounter.innerHTML = count;
+      }
+      function deleteRow(){
+        var table = document.getElementById("leaderboard");
+        var name = prompt("Enter name of entry you want to delete")
+        if (name === "Bongo") {
+          var row = prompt("Enter row number of entry you want to delete")
+          table.deleteRow(row);
+        }
+      }
+    </script>
+  </body>
+</html>
     <br>
     <button onclick="deleteRow()">Delete</button>
 
