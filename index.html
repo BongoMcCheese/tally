@@ -3,69 +3,57 @@
   <head>
     <title>Tally Counter</title>
     <style>
-      /* Add a black background */
       body {
         background-color: black;
       }
-
-      /* Add a box around the counter */
-      #counter {
-        width: 200px;
-        padding: 20px;
-        margin: auto;
+      #tally-counter {
+        width: 50px;
+        height: 50px;
         background-color: white;
+        border: 1px solid black;
         text-align: center;
-        margin-bottom: 20px;
+        font-size: 20px;
       }
     </style>
   </head>
-  <body onload="displayLeaderboard()">
-    <div id="counter">
-      <h1>Tally Counter</h1>
-      <p>Count: <span id="count">0</span></p>
-      <button onclick="increment()">Increment</button>
-      <button onclick="decrement()">Decrement</button>
-      <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-      </form>
-    </div>
-    <h2>Leaderboard</h2>
-    <div id="leaderboard"></div>
+  <body>
+    <div id="tally-counter"></div>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+        <tr>
+            <td>John</td>
+            <td>10</td>
+        </tr>
+        <tr>
+            <td>Jane</td>
+            <td>15</td>
+        </tr>
+    </table>
+    <br>
+    <button onclick="deleteRow()">Delete</button>
+
     <script>
-      var count = localStorage.getItem("count") || 0;
-      var name = localStorage.getItem("name") || "";
-      document.getElementById("count").innerHTML = count;
-      document.getElementById("name").value = name;
+      var count = 0;
+      var tallyCounter = document.getElementById("tally-counter");
+      tallyCounter.innerHTML = count;
+
       function increment() {
         count++;
-        localStorage.setItem("count", count);
-        document.getElementById("count").innerHTML = count;
-        submitScore();
+        tallyCounter.innerHTML = count;
       }
-      function decrement() {
-        count--;
-        localStorage.setItem("count", count);
-        document.getElementById("count").innerHTML = count;
-        submitScore();
-      }
-      function submitScore() {
-        name = document.getElementById("name").value;
-        localStorage.setItem("name", name);
-        var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-        leaderboard.push({ name: name, score: count });
-        localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
-        displayLeaderboard();
-      }
-      function displayLeaderboard() {
-        var leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
-        var leaderboardElem = document.getElementById("leaderboard");
-        leaderboardElem.innerHTML = "";
-        for (var i = 0; i < leaderboard.length; i++) {
-          var entry = leaderboard[i];
-          leaderboardElem.innerHTML += "<p>" + entry.name + ": " + entry.score + " ";
-          if (name === "Bongo") {
-            leaderboardElem.innerHTML += "<button onclick='deleteEntry(" + i + ")'>Delete</button>";
-          }
-          leaderboardElem.innerHTML += "</p>";
+
+      function deleteRow(){
+        var table = document.getElementsByTagName("table")[0];
+        var name = prompt("Enter name of entry you want to delete")
+        if (name === "Bongo") {
+          var row = prompt("Enter row number of entry you want to delete")
+          table.deleteRow(row);
         }
+      }
+    </script>
+  </body>
+</html>
