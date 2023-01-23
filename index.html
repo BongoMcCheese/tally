@@ -7,7 +7,12 @@
       body {
         background-color: black;
       }
-
+      
+      /* Add a pink background */
+      body.pink {
+        background-color: pink;
+      }
+      
       /* Add a box around the counter */
       #counter {
         width: 200px;
@@ -16,15 +21,24 @@
         background-color: white;
         text-align: center;
       }
+      
+      /* Add a big text for "Hello, Beautiful" */
+      .hello-beautiful {
+        font-size: 50px;
+        text-align: center;
+        display: none;
+      }
     </style>
   </head>
   <body>
+    <div id="hello" class="hello-beautiful">Hello, Beautiful</div>
     <div id="counter">
       <h1>Gifts Opened</h1>
       <p>Count: <span id="count">0</span></p>
       <button onclick="increment()">+1</button>
       <button onclick="decrement()">-1</button>
     </div>
+    <button id="b-mode" onclick="bMode()">B MODE</button>
     <script>
       var count = localStorage.getItem("count") || 0;
       document.getElementById("count").innerHTML = count;
@@ -37,6 +51,16 @@
         count--;
         localStorage.setItem("count", count);
         document.getElementById("count").innerHTML = count;
+      }
+      
+      function bMode() {
+        document.body.classList.toggle("pink");
+        var hello = document.getElementById("hello");
+        if (hello.style.display === "none") {
+          hello.style.display = "block";
+        } else {
+          hello.style.display = "none";
+        }
       }
     </script>
   </body>
